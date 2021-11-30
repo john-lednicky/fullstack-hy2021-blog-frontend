@@ -1,0 +1,22 @@
+[
+  {
+    "username": "adaldrida.brandybuck",
+    "name": "Adaldrida Brandybuck",
+    "password": "one ring to rule them all"
+  },
+  {
+    "username": "belladonna.baggins",
+    "name": "Belladonna Baggins",
+    "password": "one ring to find them"
+  },
+  {
+    "username": "chica.chubb",
+    "name": "Chica Chubb",
+    "password": "one ring to bring them all"
+  },
+  {
+    "username": "daisy.gamgee",
+    "name": "Daisy Gamgee",
+    "password": "and in the darkness bind them"
+  }
+]

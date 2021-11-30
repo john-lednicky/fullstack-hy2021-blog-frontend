@@ -1,0 +1,48 @@
+@PORT = 4000
+###
+# @name loginAdaldrida
+POST http://localhost:{{PORT}}/api/login
+content-type: application/json
+
+{
+"username": "adaldrida.brandybuck",
+"password": "one ring to rule them all"
+}
+###
+@TOKEN = {{loginAdaldrida.response.body.token}}
+###
+# @name add
+POST http://localhost:{{PORT}}/api/blogs
+content-type: application/json
+Authorization: bearer {{TOKEN}}
+
+{
+    "title": "How to Initialize an Express App",
+    "author": "Aahland Amsned",
+    "url": "https://expressjs.com/en/starter/generator.html",
+    "likes": 10
+}
+###
+# @name getAll
+GET http://localhost:{{PORT}}/api/blogs
+###
+@testBlog = {{getAll.response.body.$[0].id}}
+###
+# @name getOne
+GET http://localhost:{{PORT}}/api/blogs/{{testBlog}}
+###
+# @name update
+put http://localhost:{{PORT}}/api/blogs/{{testBlog}}
+Authorization: bearer {{TOKEN}}
+content-type: application/json
+
+{
+    "title": "How to Initialize an Express App, part 2",
+    "author": "Aahland Amsned",
+    "url": "https://expressjs.com/en/starter/generator.html",
+    "likes": 20
+}
+###
+# @name deleteOne
+delete http://localhost:{{PORT}}/api/blogs/{{testBlog}}
+Authorization: bearer {{TOKEN}}

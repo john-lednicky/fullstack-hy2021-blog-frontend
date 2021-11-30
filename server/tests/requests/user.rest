@@ -1,0 +1,75 @@
+@PORT = 4000
+###
+# @name add
+POST http://localhost:{{PORT}}/api/users
+content-type: application/json
+
+{
+"username": "adaldrida.brandybuck",
+"name": "Adaldrida Brandybuck",
+"password": "one ring to rule them all"
+}
+###
+# @name add2
+POST http://localhost:{{PORT}}/api/users
+content-type: application/json
+
+{
+"username": "belladonna.baggins",
+"name": "Belladonna Baggins",
+"password": "one ring to find them"
+}
+###
+# @name add3
+POST http://localhost:{{PORT}}/api/users
+content-type: application/json
+
+{
+"username": "chica.chubb",
+"name": "Chica Chubb",
+"password": "one ring to bring them all"
+}
+###
+# @name add4
+POST http://localhost:{{PORT}}/api/users
+content-type: application/json
+
+{
+"username": "daisy.gamgee",
+"name": "Daisy Gamgee",
+"password": "and in the darkness bind them"
+}
+###
+# @name getAll
+GET http://localhost:{{PORT}}/api/users
+###
+@testUsername = {{getAll.response.body.$[0].username}}
+###
+# @name getOne
+GET http://localhost:{{PORT}}/api/users/{{testUsername}}
+###
+# @name update
+put http://localhost:{{PORT}}/api/users/{{testUsername}}
+content-type: application/json
+
+{
+"username": "adaldrida.brandybuck",
+"name": "Adaldrida Took",
+"password": "one ring to rule them all",
+"blogs": []
+}
+###
+# @name updateAgain
+put http://localhost:{{PORT}}/api/users/{{testUsername}}
+content-type: application/json
+
+{
+"username": "adaldrida.brandybuck",
+"name": "Adaldrida Brandybuck",
+"password": "one ring to rule them all",
+"blogs": []
+}
+###
+# @name deleteOne
+delete http://localhost:{{PORT}}/api/users/{{testUsername}}
+

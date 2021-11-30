@@ -1,0 +1,34 @@
+# npm config file to use git bash (works on windows only)
+.npmrc
+
+node_modules
+coverage
+
+.vscode/
+sqlite3
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.api
+.env.test.api
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache

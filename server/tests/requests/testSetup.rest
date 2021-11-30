@@ -1,0 +1,31 @@
+@PORT = 4000
+###
+# @name clear
+POST http://localhost:{{PORT}}/api/test/clear
+content-type: application/json
+
+###
+# @name seedAll
+POST http://localhost:{{PORT}}/api/test/seed/all
+content-type: application/json
+
+###
+# @name seedUsers
+POST http://localhost:{{PORT}}/api/test/seed/users
+content-type: application/json
+
+###
+# @name seedBlogs
+POST http://localhost:{{PORT}}/api/test/seed/blogs
+content-type: application/json
+
+###
+# @name getAllTestUsersWithPasswords
+GET http://localhost:{{PORT}}/api/test/users
+
+###
+# @name getAllBlogs
+GET http://localhost:{{PORT}}/api/blogs
+###
+# @name getAllUsers
+GET http://localhost:{{PORT}}/api/users

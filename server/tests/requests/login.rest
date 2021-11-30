@@ -1,0 +1,34 @@
+@PORT = 4000
+###
+# @name login
+POST http://localhost:{{PORT}}/api/login
+content-type: application/json
+
+{
+"username": "adaldrida.brandybuck",
+"password": "one ring to rule them all"
+}
+###
+# @name add
+POST http://localhost:{{PORT}}/api/users
+content-type: application/json
+
+{
+"username": "fatty.bolger",
+"name": "Fatty Bolger",
+"password": "one ring to rule them all"
+}
+###
+# @name getAll
+GET http://localhost:{{PORT}}/api/users
+###
+@testUsername = {{getAll.response.body.$[0].username}}
+###
+# @name loginAgain
+POST http://localhost:{{PORT}}/api/login
+content-type: application/json
+
+{
+"username": "fatty.bolger",
+"password": "one ring to rule them all"
+}
