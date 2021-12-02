@@ -8,6 +8,7 @@ import {
   OverlayTrigger,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   showSuccessMessageAction,
   showErrorMessageAction,
@@ -17,6 +18,12 @@ import { login, logout } from '../redux/loginReducer';
 const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
+  const routerNavigate = useNavigate();
+  const navigate = (event, destination) => {
+    event.preventDefault();
+    routerNavigate(destination);
+  };
+
   const showSuccessMessage = (message) => {
     dispatch(showSuccessMessageAction(message));
   };
@@ -29,6 +36,7 @@ const Navigation = () => {
     try {
       dispatch(logout());
       showSuccessMessage(`logged out ${username}`);
+      navigate('/');
     } catch (err) {
       console.error(err);
       showErrorMessage(`problem logging out ${username}`);
@@ -45,12 +53,12 @@ const Navigation = () => {
         variant="dark"
       >
         <Container fluid className="m-1">
-          <Navbar.Brand href="/">HY Bloglist wewt</Navbar.Brand>
+          <Navbar.Brand to="/">HY Bloglist</Navbar.Brand>
           <Navbar.Toggle aria-controls="blogs-nav" />
           <Navbar.Collapse id="blogs-nav">
             <Nav>
-              <Nav.Link href="/">Blogs</Nav.Link>
-              <Nav.Link href="/users">Users</Nav.Link>
+              <Nav.Link href="/blogs" onClick={e => navigate(e,'/')}>Blogs</Nav.Link>
+              <Nav.Link href="/users" onClick={e => navigate(e, '/users')}>Users</Nav.Link>
             </Nav>
             <div className="fs-5 ms-auto">
               &nbsp;

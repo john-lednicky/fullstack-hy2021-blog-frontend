@@ -22,8 +22,6 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use(cors());
 
-// app.use(express.static('./dist'));
-
 app.use(middleware.requestLogger);
 
 app.use('/api/login', require('./controllers/loginRouter'));
@@ -32,14 +30,7 @@ app.use('/api/users', require('./controllers/userRouter'));
 
 if (process.env.NODE_ENV !== 'production') {
   app.use('/api/test', require('./controllers/testRouter'));
-
   app.use('/', express.static(path.join(__dirname, '../dist')));
-  app.use('/webfonts', express.static(path.join(__dirname, '../dist')));
-  app.use('/users', express.static(path.join(__dirname, '../dist')));
-  app.use('/blog', express.static(path.join(__dirname, '../dist')));
-  app.use('/user', express.static(path.join(__dirname, '../dist')));
-  app.use('/blog/:id', express.static(path.join(__dirname, '../dist')));
-  app.use('/user/:id', express.static(path.join(__dirname, '../dist')));
 }
 
 app.use(middleware.unknownEndpoint);

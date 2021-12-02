@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { Container, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { Blog } from './Blog';
+import { useNavigate } from 'react-router-dom';
 
 const BlogList = () => {
   const blogs = useSelector((state) => state.blogs);
+  const routerNavigate = useNavigate();
+  const navigate = (event, destination) => {
+    event.preventDefault();
+    routerNavigate(destination);
+  };
 
   return (
     <Container fluid>
@@ -24,7 +29,7 @@ const BlogList = () => {
             .map((blog) => (
               <div key={blog.id}>
                 <span className="blog-likes d-none">{blog.likes}</span>
-                <a className="fs-5" href={`/blog/${blog.id}`}>
+                <a className="fs-5" href={`/blog/${blog.id}`} onClick={e => navigate(e, `/blog/${blog.id}`)}>
                   {blog.title}
                 </a>
                 <span className="ms-2">by {blog.author}</span>

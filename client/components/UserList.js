@@ -1,10 +1,15 @@
 import React from 'react';
 import { Container, Card, Stack } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const UserList = () => {
   const users = useSelector((state) => state.users);
+  const routerNavigate = useNavigate();
+  const navigate = (event, destination) => {
+    event.preventDefault();
+    routerNavigate(destination);
+  };
 
   return (
     <Container fluid>
@@ -27,7 +32,11 @@ const UserList = () => {
               .sort((a, b) => a.name - b.name)
               .map((user) => (
                 <div key={user.id}>
-                  <a className="fs-5" href={`/user/${user.id}`}>
+                  <a
+                    className="fs-5"
+                    href={`/user/${user.id}`}
+                    onClick={(e) => navigate(e, `/user/${user.id}`)}
+                  >
                     {user.name}
                   </a>
                   <span className="ms-2">

@@ -21,7 +21,11 @@ import { likeBlog, removeBlog } from '../redux/blogReducer';
 const Blog = () => {
   const blogs = useSelector((state) => state.blogs);
   const id = useParams().id;
-  const navigate = useNavigate();
+  const routerNavigate = useNavigate();
+  const navigate = (event, destination) => {
+    event.preventDefault();
+    routerNavigate(destination);
+  };
   const blog = blogs.find((b) => b.id === id);
 
   const dispatch = useDispatch();
@@ -60,7 +64,7 @@ const Blog = () => {
       try {
         setShowDeleteConfirm(false);
         await dispatch(removeBlog(currentUser, blog));
-        navigate('/');
+        routerNavigate('/');
         showSuccessMessage('Blog deleted!');
       } catch (err) {
         setShowDeleteConfirm(false);
@@ -97,7 +101,7 @@ const Blog = () => {
                 id="return-to-bloglist-button"
                 className="bi text-primary bi-files fs-5"
                 style={{ cursor: 'pointer' }}
-                onClick={() => navigate('/')}
+                onClick={(e) => navigate(e, '/')}
               ></i>
             </OverlayTrigger>
           </div>
@@ -174,7 +178,7 @@ const Blog = () => {
                 </OverlayTrigger>
               )}
             </div>
-            {currentUser && currentUser.id === blog.user.id && (
+            {currentUser && currentUser.id === blog.user?.id && (
               <div className="mt-2">
                 <button
                   id={`delete-this-blog-${blog.id}`}
@@ -190,10 +194,10 @@ const Blog = () => {
               className="blog-author fs-8 fst-italic mt-2"
             >
               <span>added by: </span>
-              {currentUser && currentUser.id ? (
-                <a href={`/user/${blog.user.id}`}>{blog.user.name}</a>
+              {currentUser && currentUser.id && blog.user? (
+                <a href={`/user/${blog.user.id}`} onClick={e => navigate(e, `/user/${blog.user.id}`)}>{blog.user.name}</a>
               ) : (
-                <span>{blog.user.name}</span>
+                <span>{blog.user?.name ? blog.user.name : 'unknown'}</span>
               )}
             </div>
           </Stack>
