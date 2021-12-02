@@ -1,4 +1,4 @@
-import blogService from '../services/blogService';
+import blogService from '../../client/services/blogService';
 
 const createRemoveAction = (blog) => {
   const returnValue = {

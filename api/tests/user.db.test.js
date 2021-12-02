@@ -1,3 +1,5 @@
+global.TextEncoder = require("util").TextEncoder;
+global.TextDecoder = require("util").TextDecoder;
 const supertest = require('supertest');
 const app = require('../app');
 const db = require('./db');

@@ -45,7 +45,7 @@ const Navigation = () => {
         variant="dark"
       >
         <Container fluid className="m-1">
-          <Navbar.Brand href="/">HY Bloglist</Navbar.Brand>
+          <Navbar.Brand href="/">HY Bloglist wewt</Navbar.Brand>
           <Navbar.Toggle aria-controls="blogs-nav" />
           <Navbar.Collapse id="blogs-nav">
             <Nav>

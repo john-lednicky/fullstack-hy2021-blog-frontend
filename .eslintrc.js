@@ -18,6 +18,7 @@ module.exports = {
     it: false,
     assert: false,
     expect: false,    
+    __dirname,
   },
   extends: [
     'eslint:recommended',
