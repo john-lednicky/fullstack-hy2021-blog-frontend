@@ -2,7 +2,7 @@ module.exports = {
   testPathIgnorePatterns: [
   ],
   roots: [
-    '<rootDir>/src'
+    '<rootDir>/client'
   ],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
@@ -13,8 +13,8 @@ module.exports = {
   ],
   setupFilesAfterEnv: [],
   testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
-    '<rootDir>/src/**/*.test.{js,jsx,ts,tsx}'
+    '<rootDir>/client/**/__tests__/**/*.{js,jsx,ts,tsx}',
+    '<rootDir>/client/**/*.test.{js,jsx,ts,tsx}'
   ],
   testEnvironment: 'jsdom',
   testRunner: 'C:\\Users\\johnd\\Documents\\Learning\\React\\part5-blogs\node_modules\\jest-circus\runner.js',

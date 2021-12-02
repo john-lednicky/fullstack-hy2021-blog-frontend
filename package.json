@@ -12,10 +12,10 @@
     "@babel/preset-env": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
     "@babel/register": "^7.8.3",
-    "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.0.6",
     "autoprefixer": "^10.4.0",
     "axios": "^0.21.1",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.7.1",
@@ -49,7 +49,7 @@
     "eslint-plugin-react": "^7.18.0",
     "file-loader": "^5.0.2",
     "html-webpack-plugin": "^5.5.0",
-    "jest": "^27.3.1",
+    "jest": "^27.4.3",
     "mini-css-extract-plugin": "^2.4.5",
     "module-alias": "^2.2.2",
     "mongodb-memory-server": "^8.0.3",
@@ -74,8 +74,8 @@
     "build": "webpack --mode=production",
     "start": "dotenv -e .env -- webpack serve --mode=development",
     "cypress": "cypress open",
-    "test:api": "dotenv -e .env.autotest.api jest -c ./api.jest.config.js \"api.+test\\.js\"",
-    "test:react": "CI=true node scripts/test.js \"src.+test\\.js\"",
+    "test:api": "NODE_ENV=test dotenv -e .env.autotest.api jest --verbose --runInBand --config ./jest.api.config.js ./api/tests/*.test.js",
+    "test:react": "CI=true yarn jest -c ./jest.react.config.js",
     "lint": "eslint .",
     "pretty": "prettier --write \"client/**/*.{js,jsx,json}\"",
     "serve": "dotenv -e .env.test.api -- npx serve ./dist"
@@ -91,5 +91,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }  
+  }
 }
