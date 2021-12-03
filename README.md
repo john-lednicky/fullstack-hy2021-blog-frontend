@@ -57,17 +57,17 @@ In the repo root, you can run:
 
 ### `yarn api`
 
-Runs the backend API in development mode on port 4000. 
+Runs the backend API in development mode on port 4000. The MongoDB is on Atlas.
 
 ### `yarn api:cypress`
 
-Runs the backend API in development mode on port 4000 using the database that Cypress re-seeds on each run.
+Runs the backend API in development mode on port 4000 using a different database on Atlas. 
+Cypress reseeds the database before each test, so this can be used to prevent manual test data from being overwritten.
 
 ### `yarn start`
 
-Runs the app in the development mode and opens a browser pointing to it.
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Runs the app in the development mode on port 3000. 
+The page will reload if you make edits. 
 
 ### `yarn test:api`
 
@@ -89,7 +89,10 @@ yarn start
 
 ### 
 
-### `npm run build`
+### `yarn build`
 
-Builds the app for production to the `build` folder.
+Builds the app for production to the `dist` folder.
+
+NOTE: The API, when not in production, serves the 'dist' folder as static content at the root of the application (the REST endpoints are all under /api). 
+Because of this, the built code can be tested by running the api and navigating to the root URL at that port.
 
