@@ -71,6 +71,7 @@
     "style-loader": "^1.1.3",
     "supertest": "^6.1.6",
     "webpack": "^5.64.4",
+    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-middleware": "^5.2.2",
     "webpack-dev-server": "^4.6.0",
@@ -79,7 +80,8 @@
   "scripts": {
     "api": "dotenv -e .env.api -- node ./api/index.js",
     "api:cypress": "dotenv -e .env.test.api -- node ./api/index.js",
-    "build": "BABEL_ENV=production webpack --mode=production",
+    "build": "BABEL_ENV=production webpack --mode=production --profile --json=./dist/bundle-stats.json",
+    "profile": "BABEL_ENV=production webpack --mode=production",
     "start": "dotenv -e .env -- webpack serve --mode=development",
     "cypress": "cypress open",
     "test:api": "NODE_ENV=test dotenv -e .env.autotest.api jest --verbose --runInBand --config ./jest.api.config.js ./api/tests/*.test.js",

@@ -25,7 +25,7 @@ module.exports = (env, argv) => {
     ],
     output: {
       path: path.resolve(__dirname, './dist'),
-      filename: 'index_bundle.js',
+      filename: '[name].[contenthash].bundle.js',
     },
     devServer: {
       static: path.resolve(__dirname, 'dist'),
@@ -82,12 +82,23 @@ module.exports = (env, argv) => {
         },
       ],
     },
-    plugins: [
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            test: /node_modules/,
+            chunks: "initial",
+            name: "vendor",
+            enforce: true
+          }
+        }
+      }
+    },      
+  plugins: [
       new webpack.DefinePlugin({
         'process.env.BUILT_AT': JSON.stringify(new Date().toISOString()),
         'process.env.NODE_ENV': JSON.stringify(mode),
       }),
-      // Skip the part where we would make a html template
       new HtmlWebpackPlugin({
         template: './client/assets/index.html',
         favicon: path.resolve(__dirname, 'client/assets/favicon.ico'),
