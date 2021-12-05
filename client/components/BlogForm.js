@@ -177,7 +177,7 @@ const BlogForm = () => {
                 </Button>
                 <Button
                   id="blog-form-reset"
-                  ype="reset"
+                  type="reset"
                   className="ms-2 btn btn-primary"
                 >
                   cancel

@@ -6,8 +6,7 @@ const webpack = require('webpack');
 
 module.exports = (env, argv) => {
   const { mode } = argv;
-  const additionalPlugins =
-    mode === 'production' ? [] : [];
+  const additionalPlugins = mode === 'production' ? [] : [];
 
   const additionalEntries = mode === 'production' ? [] : [];
 
@@ -24,6 +23,7 @@ module.exports = (env, argv) => {
       ...additionalEntries,
     ],
     output: {
+      publicPath: '/',
       path: path.resolve(__dirname, './dist'),
       filename: '[name].[contenthash].bundle.js',
     },
@@ -34,6 +34,7 @@ module.exports = (env, argv) => {
       proxy: {
         '/api': 'http://localhost:4000',
       },
+      historyApiFallback: true,
     },
     devtool: 'source-map',
     module: {
@@ -45,8 +46,8 @@ module.exports = (env, argv) => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env', '@babel/preset-react']
-            }            
+              presets: ['@babel/preset-env', '@babel/preset-react'],
+            },
           },
         },
         {
@@ -87,14 +88,14 @@ module.exports = (env, argv) => {
         cacheGroups: {
           vendor: {
             test: /node_modules/,
-            chunks: "initial",
-            name: "vendor",
-            enforce: true
-          }
-        }
-      }
-    },      
-  plugins: [
+            chunks: 'initial',
+            name: 'vendor',
+            enforce: true,
+          },
+        },
+      },
+    },
+    plugins: [
       new webpack.DefinePlugin({
         'process.env.BUILT_AT': JSON.stringify(new Date().toISOString()),
         'process.env.NODE_ENV': JSON.stringify(mode),

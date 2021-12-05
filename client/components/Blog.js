@@ -17,6 +17,7 @@ import {
   showErrorMessageAction,
 } from '../redux/messageReducer';
 import { likeBlog, removeBlog } from '../redux/blogReducer';
+import { CommentForm } from './CommentForm';
 
 const Blog = () => {
   const blogs = useSelector((state) => state.blogs);
@@ -194,11 +195,52 @@ const Blog = () => {
               className="blog-author fs-8 fst-italic mt-2"
             >
               <span>added by: </span>
-              {currentUser && currentUser.id && blog.user? (
-                <a href={`/user/${blog.user.id}`} onClick={e => navigate(e, `/user/${blog.user.id}`)}>{blog.user.name}</a>
+              {currentUser && currentUser.id && blog.user ? (
+                <a
+                  href={`/user/${blog.user.id}`}
+                  onClick={(e) => navigate(e, `/user/${blog.user.id}`)}
+                >
+                  {blog.user.name}
+                </a>
               ) : (
                 <span>{blog.user?.name ? blog.user.name : 'unknown'}</span>
               )}
+            </div>
+            <div id={`blog-comments-${blog.id}`}>
+              {blog.comments
+                .slice()
+                .sort(
+                  (a, b) => Date.parse(b.createDate) - Date.parse(a.createDate)
+                )
+                .map((comment) => (
+                  <div
+                    key={comment._id}
+                    id={`blog-comment-${comment.id}`}
+                    className="ms-2 mt-2"
+                  >
+                    <div
+                      id={`blog-comment-comment-${comment.id}`}
+                      className="fs-5 fst-italic"
+                    >
+                      "{comment.comment}"
+                    </div>
+                    <div
+                      id={`blog-comment-user-${comment.id}`}
+                      className="blog-author ms-4 fs-6 "
+                    >
+                      {comment.user.name}
+                    </div>
+                    <div
+                      id={`blog-comment-date-${comment.id}`}
+                      className="blog-date ms-4 fs-6"
+                    >
+                      {new Date(comment.createDate).toLocaleString('en-US')}
+                    </div>
+                  </div>
+                ))}
+            </div>
+            <div id={`blog-comment-form-${blog.id}`} className="mt-3">
+              <CommentForm blog={blog} />
             </div>
           </Stack>
         </Card.Body>

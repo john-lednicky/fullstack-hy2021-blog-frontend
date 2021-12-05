@@ -35,6 +35,23 @@ const blogs = [
     url: 'https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/',
     likes: 2,
     user: 'adaldrida.brandybuck',
+    comments: [
+      {
+        comment: 'A comment',
+        user: 'bandobras.took',
+        createDate: '2021-12-04T20:56:19.385Z'
+      },
+      {
+        comment: 'Another comment',
+        user: 'chica.baggins',
+        createDate: '2021-12-02T20:56:19.385Z'
+      },
+      {
+        comment: 'A third comment',
+        user: 'adaldrida.brandybuck',
+        createDate: '2021-12-03T20:56:19.385Z'
+      },
+    ],
   },
   {
     title: 'The Iceberg Secret, Revealed',
@@ -56,6 +73,18 @@ const blogs = [
     url: 'https://www.youtube.com/watch?v=pnHxT0rrl6E',
     likes: 5,
     user: 'daisy.gamgee',
+    comments: [
+      {
+        comment: 'A comment',
+        user: 'daisy.gamgee',
+        createDate: '2021-12-01T20:56:19.385Z'
+      },
+      {
+        comment: 'Another comment',
+        user: 'adaldrida.brandybuck',
+        createDate: '2021-12-02T20:56:19.385Z'
+      },
+    ],
   },
 ];
 
@@ -112,13 +141,29 @@ const seedBlogs = async () => {
   const users = await User.find({});
   await Blog.deleteMany();
 
-  const blogsToAdd = blogs.map(blog => ({
+  const blogsToAdd_beta = blogs.map((blog) => ({
     ...blog,
-    user: users.find(user => user.username === blog.user)?.id,
+    user: users.find((user) => user.username === blog.user)?.id,
   }));
-  if (blogsToAdd.find(blog => !blog.user)) {
-    throw Error('blog username not found');
-  }
+
+  const blogsToAdd = blogs.reduce((newBlogs, blog) => newBlogs.concat({
+      ...blog,
+      user: users.find((user) => user.username === blog.user)?.id,
+      comments: blog.comments ? blog.comments.map((comment) => ({
+        ...comment,
+        user: users.find((user) => user.username === comment.user)?.id,
+      }))
+      : [],
+  }), []);
+
+  // if (blogsToAdd.filter((blog) => !blog.user)) {
+  //   throw Error('blog username not found');
+  // }
+  // if (
+  //   blogsToAdd.filter((blog) => blog.comments.filter((comment) => !comment.user))
+  // ) {
+  //   throw Error('comment username not found');
+  // }
 
   for (const blog of blogsToAdd) {
     const blogToAdd = new Blog(blog);

@@ -20,7 +20,12 @@ Authorization: bearer {{TOKEN}}
     "title": "How to Initialize an Express App",
     "author": "Aahland Amsned",
     "url": "https://expressjs.com/en/starter/generator.html",
-    "likes": 10
+    "likes": 10,
+    "comments": [
+        {
+            "comment": "This is a boring article and I'm tired of seeing it here."
+        }
+    ]
 }
 ###
 # @name getAll
@@ -40,7 +45,34 @@ content-type: application/json
     "title": "How to Initialize an Express App, part 2",
     "author": "Aahland Amsned",
     "url": "https://expressjs.com/en/starter/generator.html",
-    "likes": 20
+    "likes": 20,
+    "comments": [
+        {
+          "comment": "this comment was added by an update"
+        }
+    ]
+}
+###
+# @name update comment
+put http://localhost:{{PORT}}/api/blogs/{{testBlog}}
+Authorization: bearer {{TOKEN}}
+content-type: application/json
+
+{
+    "comments": [
+        {
+          "comment": "this comment was also added by an update"
+        }
+    ]
+}
+###
+# @name remove comment
+put http://localhost:{{PORT}}/api/blogs/{{testBlog}}
+Authorization: bearer {{TOKEN}}
+content-type: application/json
+
+{
+    "comments": []
 }
 ###
 # @name deleteOne

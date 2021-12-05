@@ -29,6 +29,15 @@ export const addBlog = (user, author, title, url) => {
   };
 };
 
+export const addBlogComment = (user, comment, blog) => {
+  return async dispatch => {
+    const updatedBlog = await blogService.addComment(user, comment, blog);
+    
+    console.log('updatedBlog', updatedBlog);
+    dispatch(createModifyAction(updatedBlog));
+  };
+};
+
 const createModifyAction = (blog) => {
   const returnValue = {
     type: 'blog/modify',

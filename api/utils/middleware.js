@@ -47,6 +47,10 @@ const errorHandler = (error, req, res, next) => {
     return res.status(400).send({ error: 'malformed id' });
   }
 
+  if (error.name === 'Forbidden') {
+    return res.status(403).json({ error: error.message });
+  }
+
   if (error.name === 'ValidationError') {
     return res.status(400).json({ error: error.message });
   }

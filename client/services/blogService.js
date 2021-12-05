@@ -22,6 +22,21 @@ const remove = async (user, blog) => {
   await axios.delete(`${baseUrl}/${blog.id}`, config);
 };
 
+const addComment = async (user, comment, blog) => {
+  const blogToUpdate = {
+    comments: [...blog.comments, { comment }]
+  };
+  const config = {
+    headers: { Authorization: `Bearer ${user.token}` },
+  };
+  const response = await axios.put(
+    `${baseUrl}/${blog.id}`,
+    blogToUpdate,
+    config
+  );
+  return { ...response.data, user: blog.user };
+};
+
 const like = async (user, blog) => {
   const blogToUpdate = {
     likes: blog.likes + 1,
@@ -42,5 +57,6 @@ const blogService = {
   add,
   remove,
   like,
+  addComment,
 };
 export default blogService;
